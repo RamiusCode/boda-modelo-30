@@ -1,0 +1,286 @@
+---
+// Pase.astro
+import { textoEnSuHonor } from "../scripts/pases";
+
+interface Props {
+    numeroPases?: number;
+    nombreInvitado?: string;
+}
+
+// Datos de muestra (modelo para clientes)
+const { numeroPases = 1, nombreInvitado = "Lizeth Gutierrez" } = Astro.props;
+// Una personita por pase (hasta 8, para que no se desborde)
+const personas = Array.from({ length: Math.min(numeroPases, 8) });
+---
+
+<section class="relative w-full pt-14 pb-12 px-6 overflow-hidden" id="seccion-pase">
+    <div class="pa-escena relative max-w-xs mx-auto" id="card-pase">
+
+        <!-- SELLO DE LACRE -->
+        <div class="pa-sello" id="sello-pase" aria-hidden="true">
+            <svg viewBox="0 0 80 80">
+                <defs>
+                    <radialGradient id="pa-lacre" cx="38%" cy="32%" r="75%">
+                        <stop offset="0%" stop-color="#f0955a"></stop>
+                        <stop offset="55%" stop-color="#c95f28"></stop>
+                        <stop offset="100%" stop-color="#8a3812"></stop>
+                    </radialGradient>
+                </defs>
+                <!-- Borde irregular del lacre -->
+                <path
+                    fill="url(#pa-lacre)"
+                    d="M40 2c4 0 6 3 9.5 3.6s7-1.4 10 .8 3 5.8 5.6 8.3 6.6 2.5 8 6-1 6.6-.4 10.3 4 6 3.3 9.7-4.6 5-5.8 8.6.6 7.6-1.9 10.4-6.6 2-9.7 4.1-4.3 6.3-8 7.4-6.8-1.6-10.6-1.6-6.7 2.6-10.4 1.6-4.9-5.3-8-7.4-7.2-1.3-9.7-4.1-.7-6.8-1.9-10.4-5.1-4.9-5.8-8.6 2.7-6 3.3-9.7-1.8-6.8-.4-10.3 5.4-3.5 8-6 2.6-6.1 5.6-8.3 6.5-.2 10-.8S36 2 40 2z"
+                ></path>
+                <circle cx="40" cy="40" r="25" fill="none" stroke="rgba(255,226,190,0.45)" stroke-width="1.2"></circle>
+                <circle cx="40" cy="40" r="21" fill="none" stroke="rgba(90,35,10,0.35)" stroke-width="0.8"></circle>
+                <!-- Corazón en relieve -->
+                <path
+                    d="M40 52s-11-7-11-14.2c0-3.6 2.7-6.3 6-6.3 2.2 0 4 1.2 5 3 1-1.8 2.8-3 5-3 3.3 0 6 2.7 6 6.3C51 45 40 52 40 52z"
+                    fill="rgba(255,226,190,0.85)"
+                    stroke="rgba(90,35,10,0.35)"
+                    stroke-width="0.8"
+                ></path>
+            </svg>
+        </div>
+
+        <!-- TARJETA -->
+        <div class="pa-tarjeta" id="card-principal-pase">
+            <span class="pa-linea-interior" aria-hidden="true"></span>
+
+            <div class="relative flex flex-col items-center text-center">
+                <!-- BIENVENIDA -->
+                <p
+                    class="font-jane-light uppercase tracking-[0.2em] text-[#f3ead9] text-sm"
+                    id="bienvenida-pase"
+                    data-entrada="abajo"
+                >
+                    Con mucho cariño para
+                </p>
+
+                <!-- NOMBRE DEL INVITADO (baja de renglón si es largo) -->
+                <h2
+                    class="pa-nombre font-great-vibes-local leading-tight mt-3"
+                    id="nombre-invitado-pase"
+                    data-entrada="desenfoque"
+                >
+                    {nombreInvitado}
+                </h2>
+
+                <!-- SEPARADOR -->
+                <div class="flex items-center justify-center gap-2 my-5" aria-hidden="true">
+                    <span class="pa-linea" data-entrada="centro"></span>
+                    <span class="pa-punto"></span>
+                    <span class="pa-linea pa-linea-der" data-entrada="centro"></span>
+                </div>
+
+                <p class="font-mollen-light text-[#f3ead9]/90 text-base" data-entrada="abajo">
+                    Hemos reservado
+                </p>
+
+                <!-- NÚMERO DE PASES -->
+                <p
+                    class="pa-numero font-mb-deco leading-none my-2"
+                    id="numero-pase"
+                    data-pases={numeroPases}
+                >
+                    {numeroPases}
+                </p>
+
+                <p
+                    class="font-mollen-light italic text-[#f3ead9]/90 text-base"
+                    id="texto-pase"
+                    data-entrada="abajo"
+                >
+                    {textoEnSuHonor(numeroPases)}
+                </p>
+
+                <!-- UNA PERSONITA POR PASE -->
+                <div class="flex flex-wrap items-center justify-center gap-2 mt-6" id="personas-pase">
+                    {
+                        personas.map(() => (
+                            <span class="pa-persona">
+                                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <circle cx="12" cy="8" r="4"></circle>
+                                    <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7z"></path>
+                                </svg>
+                            </span>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .pa-escena {
+        perspective: 1000px;
+    }
+
+    /* Sello de lacre que se estampa arriba */
+    .pa-sello {
+        position: absolute;
+        top: -2.4rem;
+        left: 50%;
+        width: 4.75rem;
+        height: 4.75rem;
+        margin-left: -2.375rem;
+        z-index: 30;
+        filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.5));
+    }
+    .pa-sello svg {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Tarjeta de vidrio azul con borde dorado */
+    .pa-tarjeta {
+        position: relative;
+        overflow: hidden;
+        padding: 3.25rem 1.5rem 2.25rem;
+        border-radius: 18px;
+        border: 2px solid #c2a96b;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+        box-shadow:
+            0 24px 40px -24px rgba(0, 0, 0, 0.75),
+            0 0 26px -10px rgba(233, 196, 143, 0.35);
+        transform-style: preserve-3d;
+    }
+    .pa-linea-interior {
+        position: absolute;
+        inset: 6px;
+        border-radius: 12px;
+        border: 1px solid rgba(194, 169, 107, 0.28);
+        pointer-events: none;
+    }
+    /* Nombre en dorado; puede ocupar dos renglones */
+    .pa-nombre {
+        font-size: 2.6rem;
+        padding: 0 0.15em;
+        overflow-wrap: break-word;
+        color: #d9c07a;
+    }
+
+    .pa-linea {
+        display: block;
+        height: 1px;
+        width: 3.5rem;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.85));
+        transform-origin: 100% 50%;
+    }
+    .pa-linea-der {
+        background: linear-gradient(90deg, rgba(217, 192, 122, 0.85), transparent);
+        transform-origin: 0% 50%;
+    }
+    .pa-punto {
+        width: 5px;
+        height: 5px;
+        border-radius: 9999px;
+        background: #d4682a;
+        box-shadow: 0 0 6px rgba(212, 104, 42, 0.8);
+    }
+
+    .pa-numero {
+        font-size: 4.5rem;
+        color: #f3ead9;
+    }
+
+    .pa-persona {
+        width: 2.1rem;
+        height: 2.1rem;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #e8d5a8;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(217, 192, 122, 0.55);
+        box-shadow: 0 6px 12px -6px rgba(0, 0, 0, 0.6);
+    }
+    .pa-persona svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas, sinMovimiento } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const seccion = document.getElementById("seccion-pase");
+        if (!seccion) return;
+
+        const disparo = {
+            trigger: "#card-pase",
+            start: "top 85%",
+            toggleActions: "play none none reset",
+        };
+
+        // La tarjeta se levanta en 3D, como una invitación que se abre
+        gsap.fromTo(
+            "#card-principal-pase",
+            { opacity: 0, rotationX: 35, y: 60, transformOrigin: "50% 100%" },
+            { opacity: 1, rotationX: 0, y: 0, duration: 1.3, ease: "power3.out", scrollTrigger: disparo },
+        );
+
+        // El sello cae y se estampa
+        gsap.fromTo(
+            "#sello-pase",
+            { opacity: 0, scale: 2.2, rotation: -40 },
+            { opacity: 1, scale: 1, rotation: 0, duration: 0.7, ease: "back.out(2.4)", delay: 0.8, scrollTrigger: disparo },
+        );
+
+        animarEntradas(seccion);
+
+        // El número cuenta desde 0 hasta la cantidad de pases
+        const numero = document.getElementById("numero-pase");
+        const total = Number(numero?.dataset.pases ?? 1);
+        const contador = { valor: 0 };
+        gsap.fromTo(
+            contador,
+            { valor: 0 },
+            {
+                valor: total,
+                duration: Math.min(0.6 + total * 0.15, 1.6),
+                ease: "power2.out",
+                delay: 0.9,
+                scrollTrigger: disparo,
+                onUpdate: () => {
+                    if (numero) numero.textContent = String(Math.round(contador.valor));
+                },
+            },
+        );
+        gsap.fromTo(
+            "#numero-pase",
+            { opacity: 0, scale: 0.5 },
+            { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(2)", delay: 0.8, scrollTrigger: disparo },
+        );
+
+        // Las personitas aparecen una tras otra
+        gsap.fromTo(
+            "#personas-pase .pa-persona",
+            { opacity: 0, y: 12, scale: 0.6 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.12, ease: "back.out(2)", delay: 1.3, scrollTrigger: disparo },
+        );
+
+        // Un vaivén 3D muy suave de la tarjeta
+        if (!sinMovimiento()) {
+            // Va en el contenedor, para no chocar con la entrada de la tarjeta
+            gsap.to("#card-pase", {
+                transformPerspective: 1000,
+                rotationY: 4,
+                rotationX: -2,
+                duration: 4,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: 2.5,
+            });
+        }
+    });
+</script>

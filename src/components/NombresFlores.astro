@@ -1,0 +1,578 @@
+---
+// NombresFlores.astro
+---
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 💛 SECCIÓN: FOTO PRINCIPAL + NOMBRES + FECHA + CITA          -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section
+    id="nombres-flores"
+    class="relative w-full flex flex-col items-center overflow-hidden"
+>
+    <!-- FOTO PRINCIPAL (arriba) -->
+    <div
+        class="nf-foto w-full overflow-hidden [mask-image:linear-gradient(to_bottom,black_80%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,black_80%,transparent_100%)]"
+        id="foto-principal-wrap"
+    >
+        <img
+            src="/imagenes/foto1.jpg"
+            alt="Novios"
+            class="w-full h-auto"
+            id="foto-principal"
+        />
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="relative w-full pb-16 pt-2 -mt-8" id="marco-container">
+        <!-- Luz suave detrás de los nombres -->
+        <div class="nf-luz" aria-hidden="true"></div>
+
+        <!-- FLOR DERECHA (a la altura de los nombres) -->
+        <img
+            src="/imagenes/costadito.png"
+            alt="Decoración floral"
+            class="nf-flor absolute right-0 -top-6 w-24 sm:w-28 z-30 pointer-events-none select-none"
+            id="costadito"
+        />
+
+        <!-- LA MISMA FLOR EN ESPEJO, A LA IZQUIERDA -->
+        <div
+            class="absolute left-0 -top-6 w-24 sm:w-28 z-30 pointer-events-none -scale-x-100"
+        >
+            <img
+                src="/imagenes/costadito.png"
+                alt="Decoración floral"
+                class="nf-flor w-full select-none"
+                id="costadito-espejo"
+            />
+        </div>
+
+        <!-- Contenido centrado -->
+        <div class="relative w-full max-w-md mx-auto px-6">
+            <!-- DESTELLOS DORADOS -->
+            <svg class="nf-destello nf-d1" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0Z"></path></svg>
+            <svg class="nf-destello nf-d2" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0Z"></path></svg>
+            <svg class="nf-destello nf-d3" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0Z"></path></svg>
+            <svg class="nf-destello nf-d4" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0Z"></path></svg>
+            <svg class="nf-destello nf-d5" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 0 Q11 9 20 10 Q11 11 10 20 Q9 11 0 10 Q9 9 10 0Z"></path></svg>
+
+            <div
+                class="relative z-10 flex flex-col items-center text-center pt-10 pb-8 px-6 sm:px-8"
+            >
+                <!-- NOMBRES -->
+                <h2
+                    class="nf-nombre font-great-vibes-local leading-none"
+                    id="nombre-1"
+                >
+                    Alain
+                </h2>
+                <span
+                    class="nf-amp font-great-vibes-local my-3"
+                    id="amp"
+                >
+                    &amp;
+                </span>
+                <h2
+                    class="nf-nombre font-great-vibes-local leading-none"
+                    id="nombre-2"
+                >
+                    Marisabel
+                </h2>
+
+                <!-- ADORNO DORADO -->
+                <svg
+                    class="nf-adorno mt-8"
+                    id="nf-adorno"
+                    viewBox="0 0 240 24"
+                    fill="none"
+                    aria-hidden="true"
+                >
+                    <path pathLength="1" d="M4 12 H96"></path>
+                    <path pathLength="1" d="M236 12 H144"></path>
+                    <path pathLength="1" d="M96 12 Q108 2 120 12 Q132 22 144 12"></path>
+                    <path pathLength="1" d="M96 12 Q108 22 120 12 Q132 2 144 12"></path>
+                    <circle cx="120" cy="12" r="2.4"></circle>
+                    <circle cx="4" cy="12" r="1.6"></circle>
+                    <circle cx="236" cy="12" r="1.6"></circle>
+                </svg>
+
+                <!-- FECHA -->
+                <div
+                    class="flex flex-col items-center w-full mt-8 text-[#f3ead9]"
+                    id="fecha-row"
+                >
+                    <span
+                        class="font-jane-light uppercase tracking-[0.3em] text-2xl sm:text-3xl text-[#e8d5a8]"
+                        data-entrada="izq"
+                        >Sábado</span
+                    >
+                    <div class="flex items-center gap-4 my-3">
+                        <span class="nf-linea"></span>
+                        <span class="nf-dia" data-entrada="giro">
+                            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                                <circle
+                                    class="nf-dia-aro"
+                                    pathLength="1"
+                                    cx="50"
+                                    cy="50"
+                                    r="47"></circle>
+                                <circle
+                                    class="nf-dia-aro nf-dia-aro-fino"
+                                    pathLength="1"
+                                    cx="50"
+                                    cy="50"
+                                    r="42"></circle>
+                            </svg>
+                            <span
+                                class="font-mb-deco text-[#d9c07a] text-6xl sm:text-7xl leading-none relative"
+                                >9</span
+                            >
+                        </span>
+                        <span class="nf-linea nf-linea-der"></span>
+                    </div>
+                    <span
+                        class="font-jane-light uppercase tracking-[0.3em] text-2xl sm:text-3xl text-[#e8d5a8]"
+                        id="lugar"
+                        data-entrada="der"
+                        >Octubre 2027</span
+                    >
+                </div>
+            </div>
+
+            <!-- CITA BÍBLICA -->
+            <div class="nf-cita mx-2 mt-8" id="cita-nombres" data-entrada="abajo">
+                <span class="nf-cita-comillas font-great-vibes-local" aria-hidden="true">“</span>
+                <p
+                    class="font-mollen-light text-[#f3ead9]/90 text-center text-base leading-relaxed"
+                >
+                    Agradecidos por el amor que Dios ha sembrado en nuestros
+                    corazones, queremos compartir con ustedes este día de bendición. <br/>
+                    «Sobre todo, revístanse de amor, que es el vínculo perfecto.»
+                    <span class="block mt-2 text-[#d9c07a] tracking-widest text-base"
+                        >Colosenses 3:14</span
+                    >
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Luz suave detrás de los nombres */
+    .nf-luz {
+        position: absolute;
+        left: 50%;
+        top: 4rem;
+        width: min(120vw, 560px);
+        height: 420px;
+        transform: translateX(-50%);
+        background: radial-gradient(
+            ellipse at center,
+            rgba(70, 130, 190, 0.25),
+            rgba(70, 130, 190, 0) 65%
+        );
+        pointer-events: none;
+    }
+
+    .nf-flor {
+        filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.4));
+    }
+    #costadito,
+    #costadito-espejo {
+        transform-origin: 100% 0%;
+    }
+
+    /* Nombres con brillo dorado en relieve (igual que la portada) */
+    .nf-nombre {
+        font-size: clamp(3.2rem, 15vw, 4.5rem);
+        padding: 0.1em 0.2em;
+        background: linear-gradient(
+            110deg,
+            #d9c07a 0%,
+            #e8d5a8 35%,
+            #fff3d6 48%,
+            #e8d5a8 60%,
+            #d9c07a 100%
+        );
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 2px 0 rgba(120, 60, 25, 0.4))
+            drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45));
+        animation: nf-brillo 7s ease-in-out infinite;
+    }
+    .nf-amp {
+        font-size: clamp(2.6rem, 12vw, 3.6rem);
+        line-height: 1;
+        background: linear-gradient(180deg, #f0955a 0%, #d4682a 55%, #a8461a 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 2px 0 rgba(90, 35, 10, 0.5))
+            drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
+        padding: 0 0.2em;
+    }
+    @keyframes nf-brillo {
+        0%,
+        100% {
+            background-position: 100% 0;
+        }
+        50% {
+            background-position: 0% 0;
+        }
+    }
+
+    /* Adorno dorado entre nombres y fecha */
+    .nf-adorno {
+        width: min(70vw, 240px);
+        height: auto;
+        overflow: visible;
+    }
+    .nf-adorno path {
+        stroke: #d9c07a;
+        stroke-width: 1;
+        stroke-linecap: round;
+        stroke-dasharray: 1;
+    }
+    .nf-adorno circle {
+        fill: #d9c07a;
+    }
+
+    /* Fecha: el día dentro de un aro dorado */
+    .nf-linea {
+        display: block;
+        height: 1px;
+        width: 3rem;
+        background: linear-gradient(90deg, transparent, #c2a96b);
+    }
+    .nf-linea-der {
+        background: linear-gradient(90deg, #c2a96b, transparent);
+    }
+    .nf-dia {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 6.5rem;
+        height: 6.5rem;
+    }
+    .nf-dia svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .nf-dia-aro {
+        stroke: #d9c07a;
+        stroke-width: 1;
+        stroke-dasharray: 1;
+    }
+    .nf-dia-aro-fino {
+        stroke: rgba(217, 192, 122, 0.45);
+        stroke-width: 0.6;
+    }
+
+    /* Cita en una tarjeta de vidrio fina */
+    .nf-cita {
+        position: relative;
+        padding: 2rem 1.4rem 1.6rem;
+        border-radius: 18px;
+        border: 1px solid rgba(217, 192, 122, 0.35);
+        background: linear-gradient(
+            160deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.02)
+        );
+        box-shadow:
+            0 20px 40px -20px rgba(0, 0, 0, 0.6),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+    .nf-cita-comillas {
+        position: absolute;
+        top: -1.6rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 4.5rem;
+        line-height: 1;
+        color: #d4682a;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Destellos dorados alrededor de los nombres */
+    .nf-destello {
+        position: absolute;
+        z-index: 5;
+        fill: #f3dca6;
+        filter: drop-shadow(0 0 4px rgba(243, 220, 166, 0.8));
+        opacity: 0;
+        pointer-events: none;
+    }
+    .nf-d1 { top: 3rem; left: 22%; width: 12px; }
+    .nf-d2 { top: 7.5rem; right: 20%; width: 9px; }
+    .nf-d3 { top: 11.5rem; left: 16%; width: 8px; }
+    .nf-d4 { top: 14.5rem; right: 14%; width: 13px; }
+    .nf-d5 { top: 1.5rem; right: 34%; width: 7px; }
+
+    @media (prefers-reduced-motion: reduce) {
+        .nf-nombre {
+            animation: none;
+        }
+    }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎵 BOTÓN FLOTANTE PLAY/PAUSE                                -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<button
+    id="btn-audio-control"
+    aria-label="Controlar música"
+    class="fixed bottom-6 right-6 z-[9999] w-12 h-12 rounded-full shadow-lg
+           bg-gradient-to-b from-[#e08344] to-[#c95f28] border border-[#f3ead9]/30 flex items-center justify-center
+           transition-all duration-300 hover:scale-110 active:scale-95"
+    style="opacity: 0; pointer-events: none;"
+>
+    <svg
+        id="icono-pause"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-white"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+    >
+        <rect x="6" y="4" width="4" height="16" rx="1"></rect>
+        <rect x="14" y="4" width="4" height="16" rx="1"></rect>
+    </svg>
+    <svg
+        id="icono-play"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5 text-white hidden"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+    >
+        <path d="M8 5v14l11-7z"></path>
+    </svg>
+</button>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const sinMovimiento = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
+        const disparo = (trigger: string, start = "top 85%") => ({
+            trigger,
+            start,
+            toggleActions: "play none none reset",
+        });
+
+        // Lo primero que se ve queda escondido hasta que se abre la portada
+        const primeraVista = [
+            "#foto-principal-wrap",
+            "#costadito",
+            "#costadito-espejo",
+            "#nombre-1",
+            "#amp",
+            "#nombre-2",
+        ];
+        gsap.set(primeraVista, { opacity: 0 });
+
+        const iniciar = () => {
+            // ═══ ENTRADA AL ABRIR LA PORTADA: cada cosa desde su lado ═══
+            const tl = gsap.timeline({ delay: 0.6 });
+            tl.fromTo(
+                "#foto-principal-wrap",
+                { opacity: 0, scale: 1.15, filter: "blur(10px)" },
+                { opacity: 1, scale: 1, filter: "blur(0px)", duration: 1.8, ease: "power3.out", clearProps: "filter" },
+                0,
+            )
+                // Las flores llegan desde los costados (la de la izquierda está en espejo)
+                .fromTo(
+                    ["#costadito", "#costadito-espejo"],
+                    { opacity: 0, x: 80 },
+                    { opacity: 1, x: 0, duration: 1.6, ease: "power3.out" },
+                    0.5,
+                )
+                // "Alain" desde la izquierda
+                .fromTo(
+                    "#nombre-1",
+                    { opacity: 0, x: -70, filter: "blur(8px)" },
+                    { opacity: 1, x: 0, filter: "blur(0px)", duration: 1.3, ease: "power3.out" },
+                    0.8,
+                )
+                // El "&" aparece girando
+                .fromTo(
+                    "#amp",
+                    { opacity: 0, scale: 0, rotation: -120 },
+                    { opacity: 1, scale: 1, rotation: 0, duration: 1, ease: "back.out(2)" },
+                    1.1,
+                )
+                // "Marisabel" desde la derecha
+                .fromTo(
+                    "#nombre-2",
+                    { opacity: 0, x: 70, filter: "blur(8px)" },
+                    { opacity: 1, x: 0, filter: "blur(0px)", duration: 1.3, ease: "power3.out" },
+                    1.3,
+                )
+                // Se deja el relieve dorado del CSS
+                .add(() => gsap.set(["#nombre-1", "#amp", "#nombre-2"], { clearProps: "filter" }));
+
+            // ═══ LO DE ABAJO: entra al bajar, cada elemento desde su lado ═══
+            const seccion = document.getElementById("nombres-flores");
+            if (seccion) animarEntradas(seccion);
+
+            // El adorno dorado se dibuja
+            gsap.fromTo(
+                "#nf-adorno path",
+                { strokeDashoffset: 1 },
+                {
+                    strokeDashoffset: 0,
+                    duration: 1.6,
+                    ease: "power2.inOut",
+                    stagger: 0.1,
+                    delay: 1.6,
+                    scrollTrigger: disparo("#nf-adorno", "top 95%"),
+                },
+            );
+            gsap.fromTo(
+                "#nf-adorno circle",
+                { scale: 0, transformOrigin: "50% 50%" },
+                {
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "back.out(3)",
+                    delay: 2.4,
+                    scrollTrigger: disparo("#nf-adorno", "top 95%"),
+                },
+            );
+
+            // El aro del día se dibuja
+            gsap.fromTo(
+                "#fecha-row .nf-dia-aro",
+                { strokeDashoffset: 1, rotation: -90, transformOrigin: "50% 50%" },
+                {
+                    strokeDashoffset: 0,
+                    rotation: -90,
+                    duration: 1.8,
+                    ease: "power2.inOut",
+                    stagger: 0.2,
+                    delay: 0.3,
+                    scrollTrigger: disparo("#fecha-row"),
+                },
+            );
+
+            if (sinMovimiento) return;
+
+            // Las flores se mecen con el viento
+            gsap.to(["#costadito", "#costadito-espejo"], {
+                rotation: -3,
+                duration: 3.8,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: 2.8,
+            });
+            // Destellos: titilan uno tras otro
+            gsap.utils.toArray<SVGElement>(".nf-destello").forEach((d, i) => {
+                gsap.fromTo(
+                    d,
+                    { opacity: 0, scale: 0.3, rotation: 0, transformOrigin: "50% 50%" },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        rotation: 90,
+                        duration: 1.1,
+                        ease: "sine.inOut",
+                        yoyo: true,
+                        repeat: -1,
+                        repeatDelay: gsap.utils.random(0.8, 2.2),
+                        delay: 2.4 + i * 0.6,
+                    },
+                );
+            });
+
+            // Profundidad al bajar: flores y foto se mueven a otra velocidad
+            gsap.to(["#costadito", "#costadito-espejo"], {
+                yPercent: -18,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#nombres-flores",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true,
+                },
+            });
+            gsap.to("#foto-principal", {
+                yPercent: 8,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#nombres-flores",
+                    start: "top top",
+                    end: "bottom top",
+                    scrub: true,
+                },
+            });
+        };
+
+        // Arranca cuando se toca "Ingresar" en la portada (o enseguida si no hay portada)
+        if ((window as any).portadaAbierta || !document.getElementById("portada-sobre")) {
+            iniciar();
+        } else {
+            window.addEventListener("portada-abierta", iniciar, { once: true });
+        }
+
+        // ═══ BOTÓN FLOTANTE PLAY/PAUSE ═══
+        const btnAudio = document.getElementById(
+            "btn-audio-control",
+        ) as HTMLButtonElement;
+        const iconoPlay = document.getElementById("icono-play");
+        const iconoPause = document.getElementById("icono-pause");
+
+        const intervalo = setInterval(() => {
+            const audio = (window as any).audioGlobal;
+            if (audio) {
+                clearInterval(intervalo);
+                gsap.to(btnAudio, {
+                    opacity: 1,
+                    duration: 0.5,
+                    ease: "power2.out",
+                    onStart: () => {
+                        btnAudio.style.pointerEvents = "auto";
+                    },
+                });
+                iconoPlay?.classList.add("hidden");
+                iconoPause?.classList.remove("hidden");
+
+                btnAudio.addEventListener("click", () => {
+                    const audioActual = (window as any).audioGlobal;
+                    const reproduciendo = (window as any)
+                        .estaReproduciendoGlobal;
+                    if (!audioActual) return;
+                    if (reproduciendo) {
+                        audioActual.pause();
+                        (window as any).estaReproduciendoGlobal = false;
+                        iconoPause?.classList.add("hidden");
+                        iconoPlay?.classList.remove("hidden");
+                    } else {
+                        audioActual.play();
+                        (window as any).estaReproduciendoGlobal = true;
+                        iconoPlay?.classList.add("hidden");
+                        iconoPause?.classList.remove("hidden");
+                    }
+                    gsap.fromTo(
+                        btnAudio,
+                        { scale: 0.85 },
+                        { scale: 1, duration: 0.3, ease: "back.out(2)" },
+                    );
+                });
+            }
+        }, 300);
+    });
+</script>

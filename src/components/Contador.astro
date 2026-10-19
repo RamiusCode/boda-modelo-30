@@ -1,0 +1,266 @@
+﻿---
+// ContadorRegresivo.astro
+---
+
+<!-- ═══════════════════════════════════════════════════════════ --><!-- ⏰ COMPONENTE CONTADOR REGRESIVO                            --><!-- ═══════════════════════════════════════════════════════════ -->
+<section class="relative pt-2 pb-8 px-6 overflow-hidden">
+    <div class="relative">
+        <!-- DECORACIÓN FLORAL COSTADITO2 pegada a la izquierda en todos los tamaños -->
+        <img
+            src="/imagenes/costadito2.png"
+            alt="Decoración floral"
+            class="absolute -left-16 top-[70%] -translate-y-1/2 w-24 sm:w-28 z-20 pointer-events-none select-none -rotate-6"
+            id="costadito2-contador"
+        />
+        <div class="max-w-md md:max-w-md lg:max-w-xl xl:max-w-2xl mx-auto">
+            <!-- CUENTA REGRESIVA - ESTILO COMPACTO -->
+            <div class="relative" id="cuenta-regresiva">
+            <!-- Etiqueta "Faltan" arriba centrada -->
+            <div
+                class="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10 flex items-center gap-2"
+                id="texto-faltan"
+            >
+                <span class="cr-punto"></span>
+                <div
+                    class="bg-[#d4682a] text-white px-6 py-1.5 rounded-full shadow-md"
+                >
+                    <p class="font-mollen-light text-sm md:text-base tracking-wide">
+                        Faltan
+                    </p>
+                </div>
+                <span class="cr-punto"></span>
+            </div>
+
+            <!-- Contenedor principal con borde -->
+            <div
+                class="cr-marco relative bg-transparent border-2 border-[#C2A96B] rounded-2xl pt-6 pb-4 md:py-10 px-6 shadow-sm"
+            >
+                <span class="cr-linea-interior" aria-hidden="true"></span>
+                <div class="grid grid-cols-4 gap-3">
+                    <!-- DÍAS -->
+                    <div class="text-center">
+                        <p
+                            id="dias"
+                            class="font-mb-deco text-3xl md:text-4xl text-[#f3ead9] font-light mb-1"
+                        >
+                            00
+                        </p>
+                        <p
+                            class="font-mollen-light text-xs md:text-base text-[#d9c07a] uppercase tracking-widest"
+                        >
+                            Días
+                        </p>
+                    </div>
+
+                    <!-- HORAS -->
+                    <div class="text-center">
+                        <p
+                            id="horas"
+                            class="font-mb-deco text-3xl md:text-4xl text-[#f3ead9] font-light mb-1"
+                        >
+                            00
+                        </p>
+                        <p
+                            class="font-mollen-light text-xs md:text-base text-[#d9c07a] uppercase tracking-widest"
+                        >
+                            Hrs
+                        </p>
+                    </div>
+
+                    <!-- MINUTOS -->
+                    <div class="text-center">
+                        <p
+                            id="minutos"
+                            class="font-mb-deco text-3xl md:text-4xl text-[#f3ead9] font-light mb-1"
+                        >
+                            00
+                        </p>
+                        <p
+                            class="font-mollen-light text-xs md:text-base text-[#d9c07a] uppercase tracking-widest"
+                        >
+                            Mins
+                        </p>
+                    </div>
+
+                    <!-- SEGUNDOS -->
+                    <div class="text-center">
+                        <p
+                            id="segundos"
+                            class="font-mb-deco text-3xl md:text-4xl text-[#f3ead9] font-light mb-1"
+                        >
+                            00
+                        </p>
+                        <p
+                            class="font-mollen-light text-xs md:text-base text-[#d9c07a] uppercase tracking-widest"
+                        >
+                            Segs
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Puntitos dorados a los lados de "Faltan" */
+    .cr-punto {
+        width: 5px;
+        height: 5px;
+        border-radius: 9999px;
+        background: #e9c48f;
+        box-shadow: 0 0 6px rgba(233, 196, 143, 0.8);
+    }
+
+    /* Resplandor dorado muy suave alrededor del marco */
+    .cr-marco {
+        box-shadow:
+            0 0 22px -6px rgba(233, 196, 143, 0.35),
+            inset 0 0 18px -8px rgba(233, 196, 143, 0.3);
+    }
+
+    /* Línea interior finita, apenas visible */
+    .cr-linea-interior {
+        position: absolute;
+        inset: 5px;
+        border-radius: 12px;
+        border: 1px solid rgba(194, 169, 107, 0.28);
+        pointer-events: none;
+    }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP Y CUENTA REGRESIVA                  -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { FECHA_EVENTO } from "../scripts/fecha";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // La fecha está en src/scripts/fecha.ts (la misma que usa el calendario)
+
+    const initContador = () => {
+        const sinMovimiento = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        // La flor se mece suave
+        if (!sinMovimiento) {
+            gsap.to("#costadito2-contador", {
+                rotation: 4,
+                duration: 3.6,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+            });
+        }
+
+        // Cambia el número con un desvanecido suave, solo si cambió
+        const poner = (el: HTMLElement | null, texto: string) => {
+            if (!el || el.textContent?.trim() === texto) return;
+            el.textContent = texto;
+            if (!sinMovimiento) {
+                gsap.fromTo(
+                    el,
+                    { opacity: 0.2, y: -6 },
+                    { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+                );
+            }
+        };
+
+        // ═══ ESTADO INICIAL ═══
+        gsap.set("#cuenta-regresiva", { opacity: 0, scale: 0.9 });
+
+        // ═══ ANIMACIÓN DE ENTRADA ═══
+        ScrollTrigger.create({
+            trigger: "#cuenta-regresiva",
+            start: "top 85%",
+            end: "top 20%",
+
+            onEnter: () => {
+                gsap.to("#cuenta-regresiva", {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: "back.out(1.4)",
+                });
+            },
+
+            onLeaveBack: () => {
+                gsap.to("#cuenta-regresiva", {
+                    opacity: 0,
+                    scale: 0.9,
+                    duration: 0.5,
+                    ease: "power2.in",
+                });
+            },
+        });
+
+        // ═══ CUENTA REGRESIVA ═══
+        const fechaBoda = new Date(
+            FECHA_EVENTO.año,
+            FECHA_EVENTO.mes - 1,
+            FECHA_EVENTO.dia,
+            FECHA_EVENTO.hora,
+            FECHA_EVENTO.minuto,
+            0,
+        ).getTime();
+
+
+        function actualizarCuentaRegresiva() {
+            const ahora = new Date().getTime();
+            const diferencia = fechaBoda - ahora;
+
+
+            if (diferencia > 0) {
+                const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+                const horas = Math.floor(
+                    (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+                );
+                const minutos = Math.floor(
+                    (diferencia % (1000 * 60 * 60)) / (1000 * 60),
+                );
+                const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+                const diasEl = document.getElementById("dias");
+                const horasEl = document.getElementById("horas");
+                const minutosEl = document.getElementById("minutos");
+                const segundosEl = document.getElementById("segundos");
+
+                poner(diasEl, dias.toString().padStart(2, "0"));
+                poner(horasEl, horas.toString().padStart(2, "0"));
+                poner(minutosEl, minutos.toString().padStart(2, "0"));
+                poner(segundosEl, segundos.toString().padStart(2, "0"));
+            } else {
+                // Cuando llegue la fecha
+                const diasEl = document.getElementById("dias");
+                const horasEl = document.getElementById("horas");
+                const minutosEl = document.getElementById("minutos");
+                const segundosEl = document.getElementById("segundos");
+
+                if (diasEl) diasEl.textContent = "00";
+                if (horasEl) horasEl.textContent = "00";
+                if (minutosEl) minutosEl.textContent = "00";
+                if (segundosEl) segundosEl.textContent = "00";
+            }
+        }
+
+        // Actualizar cada segundo
+        actualizarCuentaRegresiva();
+        setInterval(actualizarCuentaRegresiva, 1000);
+
+    };
+
+    // Ejecutar cuando el DOM esté listo
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initContador);
+    } else {
+        initContador();
+    }
+
+    // También ejecutar en Astro page load (para navegación entre páginas)
+    document.addEventListener("astro:page-load", initContador);
+</script>

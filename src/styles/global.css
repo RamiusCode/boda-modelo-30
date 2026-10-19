@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+
+
+
+/* ═══════════════════════════════════════════════════════════ */
+/* 🔤 FUENTES PERSONALIZADAS - Cormorant SC                    */
+/* ═══════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cormorant SC';
+  src: url('/fonts/CormorantSC-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Romantic Lovely';
+  src: url('/fonts/Romantic Lovely.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MB Deco';
+  src: url('/fonts/MB DECO W00 Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Jane Light';
+  src: url('/fonts/Jane Light W00 Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mollen Light';
+  src: url('/fonts/Mollen Trial-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Great Vibes servida desde el propio sitio (nombres de la portada) */
+@font-face {
+  font-family: 'Great Vibes Local';
+  src: url('/fonts/GreatVibes-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-great-vibes-local {
+  font-family: 'Great Vibes Local', cursive !important;
+}
+
+
+
+
+
+
+
+
+
+/* Para el nombre */
+.font-great-vibes {
+  font-family: 'Great Vibes', cursive !important;
+}
+
+/* Para mis XV años */
+.font-crimson {
+  font-family: 'Crimson Text', serif !important;
+}
+
+/* Para dedicatoria*/
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif !important;
+}
+
+/*Para texto con Charm */
+.font-charm {
+  font-family: 'Charm', cursive !important;
+}
+
+/* Fuente Romantic Lovely */
+.font-romantic-lovely {
+  font-family: 'Romantic Lovely', cursive !important;
+}
+
+/* Fuente MB Deco */
+.font-mb-deco {
+  font-family: 'MB Deco', serif !important;
+}
+
+/* Fuente Jane Light */
+.font-jane-light {
+  font-family: 'Jane Light', sans-serif !important;
+}
+
+/* Fuente Mollen Light */
+.font-mollen-light {
+  font-family: 'Mollen Light', sans-serif !important;
+}

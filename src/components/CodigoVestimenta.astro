@@ -1,0 +1,211 @@
+﻿---
+// CodigoVestimenta.astro
+// Datos de muestra (modelo para clientes)
+const paleta = [
+    { color: "#1b3a5b", nombre: "Azul noche" },
+    { color: "#d4682a", nombre: "Terracota" },
+    { color: "#e8d5a8", nombre: "Champagne" },
+    { color: "#8fa58c", nombre: "Verde salvia" },
+    { color: "#9cbbe0", nombre: "Celeste" },
+];
+---
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 👔 SECCIÓN: CÓDIGO DE VESTIMENTA                            -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="relative w-full pt-2 pb-12 px-6 overflow-hidden" id="seccion-vestimenta">
+
+    <!-- COSTADITO izquierda -->
+    <img
+        src="/imagenes/costadito2.png"
+        alt="Decoración floral"
+        class="absolute -left-4 top-1/2 -translate-y-1/2 w-28 sm:w-32 z-10 pointer-events-none select-none"
+        id="costadito-vestimenta"
+        data-entrada="izq"
+    />
+
+    <!-- CONTENIDO CENTRADO -->
+    <div class="relative z-20 flex flex-col items-center text-center max-w-xs mx-auto">
+
+        <!-- IMAGEN ROPA dentro de un aro dorado -->
+        <div class="cv-icono mb-5" id="img-vestimenta" data-entrada="giro">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <circle class="cv-aro" pathLength="1" cx="50" cy="50" r="47"></circle>
+                <circle class="cv-aro cv-aro-fino" pathLength="1" cx="50" cy="50" r="42"></circle>
+            </svg>
+            <img
+                src="/imagenes/codigovestimenta.png"
+                alt="Código de vestimenta"
+                class="w-14 sm:w-16 object-contain relative"
+                style="filter: brightness(0) saturate(100%) invert(72%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(95%);"
+            />
+        </div>
+
+        <!-- TÍTULO "VESTIMENTA" -->
+        <div class="flex items-center justify-center mb-3" id="titulo-vestimenta" data-entrada="desenfoque">
+            <h2 class="font-jane-light uppercase tracking-[0.18em] text-[#d9c07a] text-lg sm:text-xl">
+                Vestimenta
+            </h2>
+        </div>
+
+        <!-- "Formal" entre dos líneas doradas -->
+        <div class="flex items-center justify-center gap-3" data-entrada="abajo">
+            <span class="cv-linea" data-entrada="centro"></span>
+            <p class="font-mollen-light font-normal text-[#f3ead9]/90 text-lg sm:text-xl leading-relaxed" id="tipo-vestimenta">
+                Formal
+            </p>
+            <span class="cv-linea cv-linea-der" data-entrada="centro"></span>
+        </div>
+
+        <!-- PALETA SUGERIDA -->
+        <p
+            class="font-jane-light uppercase tracking-[0.2em] text-[#d9c07a]/80 text-xs mt-8 mb-3"
+            data-entrada="abajo"
+        >
+            Paleta sugerida
+        </p>
+        <div class="flex items-center justify-center gap-3" id="paleta-vestimenta">
+            {
+                paleta.map((p) => (
+                    <span
+                        class="cv-color"
+                        style={`background:${p.color}`}
+                        title={p.nombre}
+                        aria-label={p.nombre}
+                    ></span>
+                ))
+            }
+        </div>
+        <p
+            class="font-mollen-light text-[#f3ead9]/70 text-sm italic mt-4"
+            data-entrada="abajo"
+        >
+            Reservamos el blanco para la novia
+        </p>
+
+    </div>
+</section>
+
+<style>
+    .cv-icono {
+        position: relative;
+        width: 6rem;
+        height: 6rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cv-icono svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+    }
+    .cv-aro {
+        stroke: #d9c07a;
+        stroke-width: 1;
+        stroke-dasharray: 1;
+    }
+    .cv-aro-fino {
+        stroke: rgba(217, 192, 122, 0.45);
+        stroke-width: 0.6;
+    }
+
+    .cv-linea {
+        display: block;
+        height: 1px;
+        width: 2.75rem;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.85));
+        transform-origin: 100% 50%;
+    }
+    .cv-linea-der {
+        background: linear-gradient(90deg, rgba(217, 192, 122, 0.85), transparent);
+        transform-origin: 0% 50%;
+    }
+
+    /* Circulitos de la paleta con borde dorado y relieve */
+    .cv-color {
+        width: 1.9rem;
+        height: 1.9rem;
+        border-radius: 9999px;
+        border: 2px solid rgba(243, 234, 217, 0.85);
+        box-shadow:
+            0 0 0 1px rgba(217, 192, 122, 0.5),
+            0 6px 12px -4px rgba(0, 0, 0, 0.55),
+            inset 0 2px 3px rgba(255, 255, 255, 0.25);
+    }
+
+    #costadito-vestimenta {
+        transform-origin: 0% 50%;
+        filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.4));
+    }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas, sinMovimiento } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const seccion = document.getElementById("seccion-vestimenta");
+        if (!seccion) return;
+
+        animarEntradas(seccion);
+
+        // Los aros dorados se dibujan
+        gsap.fromTo(
+            "#img-vestimenta .cv-aro",
+            { strokeDashoffset: 1 },
+            {
+                strokeDashoffset: 0,
+                duration: 1.8,
+                stagger: 0.2,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#img-vestimenta",
+                    start: "top 90%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+
+        // Los colores aparecen uno tras otro, como gotas
+        gsap.fromTo(
+            "#paleta-vestimenta .cv-color",
+            { opacity: 0, scale: 0, y: 10 },
+            {
+                opacity: 1,
+                scale: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "back.out(2.2)",
+                scrollTrigger: {
+                    trigger: "#paleta-vestimenta",
+                    start: "top 92%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+
+        if (!sinMovimiento()) {
+            gsap.fromTo(
+                "#costadito-vestimenta",
+                { rotation: -6 },
+                {
+                    rotation: -2,
+                    duration: 3.8,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                },
+            );
+        }
+    });
+</script>

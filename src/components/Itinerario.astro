@@ -1,0 +1,213 @@
+---
+// Itinerario.astro
+// Datos de muestra (modelo para clientes)
+const momentos = [
+    { hora: "12:00", nombre: "Ceremonia Religiosa", icono: "/imagenes/iglesia.png" },
+    { hora: "14:30", nombre: "Recepción", icono: "/imagenes/recepcion.png" },
+    { hora: "15:00", nombre: "Brindis y Vals", icono: "/imagenes/brindis.png" },
+    { hora: "16:00", nombre: "Almuerzo", icono: "/imagenes/cena.png" },
+    { hora: "19:00", nombre: "Torta", icono: "/imagenes/torta.png" },
+    { hora: "20:00", nombre: "Fiesta", icono: "/imagenes/musica.png" },
+];
+---
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🕰️ SECCIÓN: ITINERARIO                                      -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="relative w-full pt-8 pb-14 px-6 overflow-hidden" id="seccion-itinerario">
+
+    <!-- PLUMA SUPERIOR CENTRADA -->
+    <div class="flex justify-center mb-6" data-entrada="arriba">
+        <img
+            src="/imagenes/pluma.png"
+            alt="Pluma decorativa"
+            class="it-pluma w-24 sm:w-28 object-contain"
+        />
+    </div>
+
+    <!-- FLOR DERECHA -->
+    <img
+        src="/imagenes/costadito.png"
+        alt="Decoración floral"
+        class="it-flor absolute right-0 top-[8%] w-20 sm:w-24 z-10 pointer-events-none select-none"
+        data-entrada="der"
+    />
+
+    <!-- TÍTULO -->
+    <h2
+        class="font-jane-light uppercase tracking-[0.18em] text-[#d9c07a] text-lg sm:text-xl text-center mb-10"
+        data-entrada="desenfoque"
+    >
+        Itinerario
+    </h2>
+
+    <!-- LÍNEA DE TIEMPO -->
+    <div class="relative max-w-sm mx-auto" id="linea-tiempo">
+        <!-- Línea dorada central que se dibuja al bajar -->
+        <span class="it-linea-fondo" aria-hidden="true"></span>
+        <span class="it-linea" id="it-linea" aria-hidden="true"></span>
+
+        <ol class="relative flex flex-col gap-9">
+            {
+                momentos.map((m, i) => {
+                    const par = i % 2 === 0;
+                    return (
+                        <li class="it-momento grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+                            <!-- Lado izquierdo -->
+                            <div class="text-right" data-entrada="izq">
+                                {par ? (
+                                    <p class="font-mb-deco text-[#f3ead9] text-3xl leading-none">
+                                        {m.hora}
+                                    </p>
+                                ) : (
+                                    <p class="font-mollen-light text-[#f3ead9]/90 text-base leading-snug">
+                                        {m.nombre}
+                                    </p>
+                                )}
+                            </div>
+
+                            <!-- Ícono en un aro dorado sobre la línea -->
+                            <div class="it-icono" data-entrada="giro">
+                                <img
+                                    src={m.icono}
+                                    alt=""
+                                    class="w-7 h-7 object-contain"
+                                    style="filter: brightness(0) saturate(100%) invert(72%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(95%);"
+                                />
+                            </div>
+
+                            <!-- Lado derecho -->
+                            <div class="text-left" data-entrada="der">
+                                {par ? (
+                                    <p class="font-mollen-light text-[#f3ead9]/90 text-base leading-snug">
+                                        {m.nombre}
+                                    </p>
+                                ) : (
+                                    <p class="font-mb-deco text-[#f3ead9] text-3xl leading-none">
+                                        {m.hora}
+                                    </p>
+                                )}
+                            </div>
+                        </li>
+                    );
+                })
+            }
+        </ol>
+
+        <!-- Puntito final -->
+        <span class="it-fin" aria-hidden="true"></span>
+    </div>
+</section>
+
+<style>
+    /* Línea central: una tenue de fondo y la dorada que crece encima */
+    .it-linea-fondo,
+    .it-linea {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        transform: translateX(-50%);
+    }
+    .it-linea-fondo {
+        background: rgba(194, 169, 107, 0.18);
+    }
+    .it-linea {
+        background: linear-gradient(
+            180deg,
+            transparent,
+            #d9c07a 6%,
+            #d9c07a 94%,
+            transparent
+        );
+        box-shadow: 0 0 6px rgba(233, 196, 143, 0.6);
+        transform-origin: 50% 0%;
+    }
+
+    /* Ícono dentro de un aro dorado con fondo azul, para tapar la línea */
+    .it-icono {
+        position: relative;
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 9999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle at 50% 35%, #1f4469, #10263f);
+        border: 1px solid rgba(217, 192, 122, 0.85);
+        box-shadow:
+            0 0 0 4px rgba(16, 38, 63, 0.9),
+            0 0 0 5px rgba(217, 192, 122, 0.25),
+            0 10px 18px -8px rgba(0, 0, 0, 0.7);
+    }
+
+    .it-fin {
+        position: absolute;
+        left: 50%;
+        bottom: -14px;
+        width: 7px;
+        height: 7px;
+        background: #d9c07a;
+        transform: translateX(-50%) rotate(45deg);
+        box-shadow: 0 0 6px rgba(233, 196, 143, 0.8);
+    }
+
+    .it-flor {
+        transform-origin: 100% 0%;
+        filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.4));
+    }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas, sinMovimiento } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const seccion = document.getElementById("seccion-itinerario");
+        if (!seccion) return;
+
+        animarEntradas(seccion);
+
+        // La línea dorada se dibuja a medida que se baja
+        gsap.fromTo(
+            "#it-linea",
+            { scaleY: 0 },
+            {
+                scaleY: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#linea-tiempo",
+                    start: "top 75%",
+                    end: "bottom 60%",
+                    scrub: 0.6,
+                },
+            },
+        );
+
+        if (!sinMovimiento()) {
+            gsap.to(seccion.querySelector(".it-pluma"), {
+                y: -5,
+                rotation: 2,
+                duration: 3,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+            });
+            gsap.to(seccion.querySelector(".it-flor"), {
+                rotation: -3,
+                duration: 3.8,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: 1.2,
+            });
+        }
+    });
+</script>

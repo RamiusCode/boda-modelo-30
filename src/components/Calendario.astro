@@ -1,0 +1,305 @@
+---
+// Calendario.astro
+// La fecha sale de src/scripts/fecha.ts (la misma que usa el contador).
+// El mes se arma acá, al compilar: no depende de JavaScript en el celular.
+import { FECHA_EVENTO } from "../scripts/fecha";
+
+const NOMBRES_MESES = [
+    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
+];
+
+const { año, mes, dia: diaEspecial } = FECHA_EVENTO;
+const primerDia = new Date(año, mes - 1, 1).getDay();
+const ultimoDia = new Date(año, mes, 0).getDate();
+const huecos = Array.from({ length: primerDia });
+const dias = Array.from({ length: ultimoDia }, (_, i) => i + 1);
+const semana = ["D", "L", "M", "M", "J", "V", "S"];
+---
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 📅 COMPONENTE CALENDARIO - FECHA DE LA BODA                 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="relative w-full pt-10 pb-12 px-6 overflow-hidden" id="seccion-calendario">
+
+    <!-- FLOR IZQUIERDA -->
+    <img
+        src="/imagenes/costadito2.png"
+        alt="Decoración floral"
+        class="ca-flor absolute left-0 top-[12%] w-20 sm:w-24 z-20 pointer-events-none select-none"
+        data-entrada="izq"
+    />
+
+    <div class="relative z-10 flex flex-col items-center text-center max-w-xs mx-auto">
+
+        <!-- TÍTULO -->
+        <h2
+            class="ca-titulo font-great-vibes-local text-5xl leading-tight mb-8"
+            data-entrada="desenfoque"
+        >
+            Fecha Especial
+        </h2>
+
+        <!-- TARJETA -->
+        <div class="ca-tarjeta w-full" id="card-calendario" data-entrada="abajo">
+            <span class="ca-etiqueta font-jane-light">Reserva la fecha</span>
+
+            <!-- MES Y AÑO -->
+            <p class="font-jane-light uppercase tracking-[0.3em] text-[#e8d5a8] text-xl">
+                {NOMBRES_MESES[mes - 1]}
+            </p>
+            <p class="font-mollen-light text-[#d9c07a] text-sm tracking-[0.3em] mt-1">
+                {año}
+            </p>
+
+            <span class="ca-separador" aria-hidden="true"></span>
+
+            <!-- DÍAS DE LA SEMANA -->
+            <div class="grid grid-cols-7 gap-1 mb-2">
+                {
+                    semana.map((d) => (
+                        <div class="font-jane-light text-xs text-[#d9c07a]/80 tracking-widest">
+                            {d}
+                        </div>
+                    ))
+                }
+            </div>
+
+            <!-- DÍAS DEL MES -->
+            <div class="grid grid-cols-7 gap-y-1.5 gap-x-1" id="dias-calendario">
+                {huecos.map(() => <div></div>)}
+                {
+                    dias.map((d) =>
+                        d === diaEspecial ? (
+                            <div class="ca-dia ca-dia-especial" id="dia-especial-cal">
+                                <svg class="ca-anillo" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+                                    <circle pathLength="1" cx="20" cy="20" r="18.5"></circle>
+                                </svg>
+                                <svg class="ca-latido" viewBox="0 0 24 22" aria-hidden="true">
+                                    <path d="M12 21S1.5 14 1.5 7.3C1.5 4 4 1.5 7.1 1.5c2 0 3.8 1.2 4.9 3 1.1-1.8 2.9-3 4.9-3 3.1 0 5.6 2.5 5.6 5.8C22.5 14 12 21 12 21z"></path>
+                                </svg>
+                                <span class="relative">{d}</span>
+                            </div>
+                        ) : (
+                            <div class="ca-dia">{d}</div>
+                        ),
+                    )
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Título con brillo dorado, como los nombres */
+    .ca-titulo {
+        padding: 0 0.2em;
+        background: linear-gradient(110deg, #d9c07a 0%, #e8d5a8 35%, #fff3d6 48%, #e8d5a8 60%, #d9c07a 100%);
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 2px 0 rgba(120, 60, 25, 0.35)) drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4));
+        animation: ca-brillo 7s ease-in-out infinite;
+    }
+    @keyframes ca-brillo {
+        0%,
+        100% {
+            background-position: 100% 0;
+        }
+        50% {
+            background-position: 0% 0;
+        }
+    }
+
+    /* Tarjeta de vidrio con borde dorado y línea interior */
+    .ca-tarjeta {
+        position: relative;
+        padding: 2.25rem 1rem 1.5rem;
+        border-radius: 18px;
+        border: 2px solid #c2a96b;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+        box-shadow:
+            0 24px 40px -24px rgba(0, 0, 0, 0.75),
+            0 0 26px -10px rgba(233, 196, 143, 0.35);
+    }
+    .ca-tarjeta::before {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border-radius: 12px;
+        border: 1px solid rgba(194, 169, 107, 0.28);
+        pointer-events: none;
+    }
+    .ca-etiqueta {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        padding: 0.3rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #10263f;
+        background: linear-gradient(180deg, #f3e2b5, #d9c07a);
+        box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.5);
+    }
+
+    .ca-separador {
+        display: block;
+        height: 1px;
+        margin: 1rem auto 1rem;
+        width: 70%;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.7), transparent);
+    }
+
+    /* Días */
+    .ca-dia {
+        position: relative;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Mollen Light", sans-serif;
+        font-size: 0.9rem;
+        color: rgba(243, 234, 217, 0.85);
+    }
+
+    /* El día de la boda: círculo terracota en relieve con aro dorado */
+    .ca-dia-especial {
+        color: #fff7ea;
+        font-size: 1rem;
+        text-shadow: 0 1px 1px rgba(90, 35, 10, 0.5);
+    }
+    .ca-dia-especial::before {
+        content: "";
+        position: absolute;
+        inset: 8%;
+        border-radius: 9999px;
+        background: linear-gradient(180deg, #ec9455 0%, #d4682a 55%, #bf5523 100%);
+        box-shadow:
+            0 3px 0 #8a3812,
+            0 8px 14px -4px rgba(0, 0, 0, 0.6),
+            0 0 18px rgba(212, 104, 42, 0.55),
+            inset 0 1px 0 rgba(255, 240, 220, 0.6);
+    }
+    .ca-anillo {
+        position: absolute;
+        inset: -14%;
+        width: 128%;
+        height: 128%;
+        transform: rotate(-90deg);
+        overflow: visible;
+    }
+    .ca-anillo circle {
+        stroke: #e9c48f;
+        stroke-width: 1;
+        stroke-dasharray: 1;
+    }
+    .ca-latido {
+        position: absolute;
+        top: -38%;
+        right: -22%;
+        width: 0.85rem;
+        height: auto;
+        fill: #e9c48f;
+        filter: drop-shadow(0 0 4px rgba(233, 196, 143, 0.8));
+        z-index: 1;
+    }
+
+    .ca-flor {
+        transform-origin: 0% 0%;
+        filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.4));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .ca-titulo {
+            animation: none;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas, sinMovimiento } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const seccion = document.getElementById("seccion-calendario");
+        if (!seccion) return;
+
+        animarEntradas(seccion);
+
+        const disparo = {
+            trigger: "#dias-calendario",
+            start: "top 90%",
+            toggleActions: "play none none reset",
+        };
+
+        // Los días aparecen uno tras otro
+        gsap.fromTo(
+            "#dias-calendario .ca-dia",
+            { opacity: 0, scale: 0.6 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 0.4,
+                stagger: 0.018,
+                ease: "back.out(1.6)",
+                delay: 0.3,
+                scrollTrigger: disparo,
+            },
+        );
+
+        // Al final, el aro dorado se dibuja alrededor del día de la boda
+        gsap.fromTo(
+            "#dia-especial-cal .ca-anillo circle",
+            { strokeDashoffset: 1 },
+            {
+                strokeDashoffset: 0,
+                duration: 1.4,
+                ease: "power2.inOut",
+                delay: 1.1,
+                scrollTrigger: disparo,
+            },
+        );
+        gsap.fromTo(
+            "#dia-especial-cal .ca-latido",
+            { opacity: 0, scale: 0 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 0.6,
+                ease: "back.out(3)",
+                delay: 2,
+                scrollTrigger: disparo,
+            },
+        );
+
+        if (!sinMovimiento()) {
+            // El corazoncito late suave
+            gsap.to("#dia-especial-cal .ca-latido path", {
+                scale: 1.25,
+                transformOrigin: "50% 50%",
+                duration: 0.35,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                repeatDelay: 1.8,
+                delay: 3,
+            });
+            gsap.to(seccion.querySelector(".ca-flor"), {
+                rotation: 3,
+                duration: 3.8,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: 1.2,
+            });
+        }
+    });
+</script>

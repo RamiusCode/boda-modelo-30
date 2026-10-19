@@ -1,0 +1,217 @@
+---
+// Restriccion.astro — Solo adultos
+---
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🥂 SECCIÓN: SOLO ADULTOS                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="relative w-full pt-6 pb-12 px-6 overflow-hidden" id="seccion-adultos">
+
+    <!-- FLOR DERECHA -->
+    <img
+        src="/imagenes/costadito.png"
+        alt="Decoración floral"
+        class="sa-flor absolute right-0 top-[10%] w-20 sm:w-24 z-20 pointer-events-none select-none"
+        data-entrada="der"
+    />
+
+    <div class="relative z-10 flex flex-col items-center text-center max-w-xs mx-auto">
+
+        <!-- ÍCONO dentro de un doble aro dorado -->
+        <div class="sa-icono mb-4" id="icono-adultos" data-entrada="giro">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <circle class="sa-aro" pathLength="1" cx="50" cy="50" r="47"></circle>
+                <circle class="sa-aro sa-aro-fino" pathLength="1" cx="50" cy="50" r="42"></circle>
+            </svg>
+            <img
+                src="/imagenes/restriccion.png"
+                alt="Solo adultos"
+                class="w-11 h-11 object-contain relative"
+                style="filter: brightness(0) saturate(100%) invert(72%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(95%);"
+            />
+        </div>
+
+        <!-- TÍTULO -->
+        <h2
+            class="sa-titulo font-great-vibes-local text-5xl leading-tight mb-5"
+            data-entrada="desenfoque"
+        >
+            Solo Adultos
+        </h2>
+
+        <!-- TARJETA CON EL MENSAJE -->
+        <div class="sa-tarjeta w-full" data-entrada="abajo">
+            <p class="font-mollen-light text-[#f3ead9]/90 text-base leading-relaxed" data-entrada="izq">
+                Aunque amamos a sus pequeños, este día especial es solo para adultos.
+            </p>
+
+            <!-- Separador -->
+            <div class="flex items-center justify-center gap-2 my-4" aria-hidden="true">
+                <span class="sa-linea" data-entrada="centro"></span>
+                <span class="sa-punto"></span>
+                <span class="sa-linea sa-linea-der" data-entrada="centro"></span>
+            </div>
+
+            <p class="font-mollen-light text-[#f3ead9]/80 text-sm leading-relaxed" data-entrada="der">
+                Queremos que se regalen una noche de descanso y celebración, y que disfruten con nosotros cada momento.
+            </p>
+
+            <p class="font-great-vibes-local text-[#e8d5a8] text-2xl leading-tight mt-5" data-entrada="desenfoque">
+                Agradecemos su comprensión
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .sa-icono {
+        position: relative;
+        width: 5rem;
+        height: 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sa-icono svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+    }
+    .sa-aro {
+        stroke: #d9c07a;
+        stroke-width: 1;
+        stroke-dasharray: 1;
+    }
+    .sa-aro-fino {
+        stroke: rgba(217, 192, 122, 0.45);
+        stroke-width: 0.6;
+    }
+
+    /* Título con brillo dorado, como los nombres */
+    .sa-titulo {
+        padding: 0 0.2em;
+        background: linear-gradient(
+            110deg,
+            #d9c07a 0%,
+            #e8d5a8 35%,
+            #fff3d6 48%,
+            #e8d5a8 60%,
+            #d9c07a 100%
+        );
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 2px 0 rgba(120, 60, 25, 0.35))
+            drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4));
+        animation: sa-brillo 7s ease-in-out infinite;
+    }
+    @keyframes sa-brillo {
+        0%,
+        100% {
+            background-position: 100% 0;
+        }
+        50% {
+            background-position: 0% 0;
+        }
+    }
+
+    /* Tarjeta de vidrio con borde dorado fino */
+    .sa-tarjeta {
+        position: relative;
+        padding: 1.75rem 1.4rem 1.5rem;
+        border-radius: 18px;
+        border: 1px solid rgba(217, 192, 122, 0.45);
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+        box-shadow:
+            0 22px 40px -22px rgba(0, 0, 0, 0.7),
+            0 0 24px -10px rgba(233, 196, 143, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+    .sa-tarjeta::before {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border-radius: 13px;
+        border: 1px solid rgba(217, 192, 122, 0.18);
+        pointer-events: none;
+    }
+
+    .sa-linea {
+        display: block;
+        height: 1px;
+        width: 3rem;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.85));
+        transform-origin: 100% 50%;
+    }
+    .sa-linea-der {
+        background: linear-gradient(90deg, rgba(217, 192, 122, 0.85), transparent);
+        transform-origin: 0% 50%;
+    }
+    .sa-punto {
+        width: 4px;
+        height: 4px;
+        border-radius: 9999px;
+        background: #d4682a;
+        box-shadow: 0 0 6px rgba(212, 104, 42, 0.8);
+    }
+
+    .sa-flor {
+        transform-origin: 100% 0%;
+        filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.4));
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .sa-titulo {
+            animation: none;
+        }
+    }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas, sinMovimiento } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const seccion = document.getElementById("seccion-adultos");
+        if (!seccion) return;
+
+        animarEntradas(seccion);
+
+        // Los aros dorados se dibujan
+        gsap.fromTo(
+            "#icono-adultos .sa-aro",
+            { strokeDashoffset: 1 },
+            {
+                strokeDashoffset: 0,
+                duration: 1.8,
+                stagger: 0.2,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#icono-adultos",
+                    start: "top 90%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+
+        if (!sinMovimiento()) {
+            gsap.to(seccion.querySelector(".sa-flor"), {
+                rotation: -3,
+                duration: 3.8,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: 1.2,
+            });
+        }
+    });
+</script>

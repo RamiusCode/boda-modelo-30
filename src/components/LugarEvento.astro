@@ -1,0 +1,306 @@
+---
+// LugarEvento.astro
+// Diseño compartido de Ceremonia y Recepción: cada una le pasa sus datos.
+export interface Props {
+    id: string;
+    icono: string;
+    titulo: string;
+    hora: string;
+    periodo: string;
+    lugar: string;
+    direccion: string[];
+    mapa: string;
+    flor: "izquierda" | "derecha";
+}
+
+const { id, icono, titulo, hora, periodo, lugar, direccion, mapa, flor } =
+    Astro.props;
+const florIzq = flor === "izquierda";
+// La flor entra desde su lado y el resto alterna en espejo
+const lado = florIzq ? "izq" : "der";
+const ladoOpuesto = florIzq ? "der" : "izq";
+---
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 📍 SECCIÓN: LUGAR DEL EVENTO                                 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section
+    class="lugar-evento relative w-full pt-8 pb-12 px-6 overflow-hidden"
+    id={id}
+>
+    <!-- PLUMA SUPERIOR CENTRADA -->
+    <div class="flex justify-center mb-6" data-entrada="arriba">
+        <img
+            src="/imagenes/pluma.png"
+            alt="Pluma decorativa"
+            class="le-pluma w-24 sm:w-28 object-contain"
+        />
+    </div>
+
+    <!-- FLOR AL COSTADO -->
+    <img
+        src={florIzq ? "/imagenes/costadito2.png" : "/imagenes/costadito.png"}
+        alt="Decoración floral"
+        class:list={[
+            "le-flor absolute top-[15%] w-20 sm:w-24 z-10 pointer-events-none select-none",
+            florIzq ? "left-0 le-flor-izq" : "right-0 le-flor-der",
+        ]}
+        data-entrada={lado}
+    />
+
+    <!-- CONTENIDO CENTRADO -->
+    <div
+        class="relative z-20 flex flex-col items-center text-center max-w-xs mx-auto"
+    >
+        <!-- ÍCONO EN UN ARO DORADO -->
+        <div class="le-icono mb-4" data-entrada="giro">
+            <svg viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                <circle class="le-aro" pathLength="1" cx="50" cy="50" r="47"
+                ></circle>
+            </svg>
+            <img
+                src={icono}
+                alt=""
+                class="w-11 h-11 object-contain relative"
+                style="filter: brightness(0) saturate(100%) invert(72%) sepia(40%) saturate(400%) hue-rotate(5deg) brightness(95%);"
+            />
+        </div>
+
+        <!-- TÍTULO -->
+        <h2
+            class="font-jane-light uppercase tracking-[0.18em] text-[#d9c07a] text-lg sm:text-xl mb-8"
+            data-entrada="desenfoque"
+        >
+            {titulo}
+        </h2>
+
+        <!-- FILA: HORA | SEPARADOR | LUGAR -->
+        <div class="flex items-center justify-center gap-4 w-full mb-8">
+            <!-- HORA -->
+            <div class="text-left" data-entrada={lado}>
+                <p
+                    class="font-mb-deco text-[#f3ead9] text-4xl sm:text-5xl leading-none"
+                >
+                    {hora}
+                </p>
+                <p
+                    class="font-mollen-light text-[#d9c07a] text-lg uppercase tracking-widest mt-1"
+                >
+                    {periodo}
+                </p>
+            </div>
+
+            <!-- LÍNEA VERTICAL -->
+            <div class="le-linea" data-entrada="vertical"></div>
+
+            <!-- LUGAR -->
+            <div class="text-left" data-entrada={ladoOpuesto}>
+                <p
+                    class="font-mollen-light text-[#f3ead9]/90 text-lg sm:text-xl leading-relaxed font-medium"
+                >
+                    {lugar}
+                </p>
+                <p
+                    class="font-mollen-light text-[#f3ead9]/90 text-base sm:text-lg leading-relaxed mt-1"
+                >
+                    {
+                        direccion.map((linea, i) => (
+                            <>
+                                {i > 0 && <br />}
+                                {linea}
+                            </>
+                        ))
+                    }
+                </p>
+            </div>
+        </div>
+
+        <!-- BOTÓN VER UBICACIÓN -->
+        <div data-entrada="abajo">
+            <a
+                href={mapa}
+                target={mapa === "#" ? undefined : "_blank"}
+                rel="noopener noreferrer"
+                class="le-boton inline-flex items-center gap-2 px-8 py-3 rounded-xl text-white font-jane-light text-base uppercase tracking-[0.2em]"
+            >
+                <svg
+                    class="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"
+                    ></path>
+                    <circle cx="12" cy="9.5" r="2.5"></circle>
+                </svg>
+                Ver Ubicación
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Ícono dentro de un aro dorado que se dibuja */
+    .le-icono {
+        position: relative;
+        width: 4.75rem;
+        height: 4.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .le-icono svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+    }
+    .le-aro {
+        stroke: #d9c07a;
+        stroke-width: 1;
+        stroke-dasharray: 1;
+    }
+
+    /* Línea vertical que se desvanece en las puntas */
+    .le-linea {
+        width: 1px;
+        height: 3.75rem;
+        flex: none;
+        background: linear-gradient(
+            180deg,
+            transparent,
+            rgba(194, 169, 107, 0.9) 25%,
+            rgba(194, 169, 107, 0.9) 75%,
+            transparent
+        );
+        transform-origin: 50% 50%;
+    }
+
+    /* Botón terracota en relieve, como el de la portada */
+    .le-boton {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(180deg, #ec9455 0%, #d4682a 55%, #bf5523 100%);
+        border: 1px solid rgba(255, 226, 190, 0.45);
+        box-shadow:
+            0 4px 0 #8a3812,
+            0 12px 20px -6px rgba(0, 0, 0, 0.55),
+            inset 0 1px 0 rgba(255, 240, 220, 0.6);
+        text-shadow: 0 1px 1px rgba(90, 35, 10, 0.5);
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease;
+    }
+    .le-boton:hover {
+        transform: translateY(-2px);
+    }
+    .le-boton:active {
+        transform: translateY(3px);
+        box-shadow:
+            0 1px 0 #8a3812,
+            0 6px 12px -4px rgba(0, 0, 0, 0.5),
+            inset 0 1px 0 rgba(255, 240, 220, 0.6);
+    }
+    .le-boton::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -60%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(
+            100deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+        );
+        transform: skewX(-20deg);
+        animation: le-destello 4s ease-in-out 1.5s infinite;
+    }
+    @keyframes le-destello {
+        0% {
+            left: -60%;
+        }
+        40%,
+        100% {
+            left: 130%;
+        }
+    }
+
+    .le-flor {
+        filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.4));
+    }
+    .le-flor-izq {
+        transform-origin: 0% 0%;
+    }
+    .le-flor-der {
+        transform-origin: 100% 0%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .le-boton::after {
+            animation: none;
+        }
+    }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP (sirve para todas las secciones)    -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas, sinMovimiento } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document
+            .querySelectorAll<HTMLElement>(".lugar-evento")
+            .forEach((seccion) => {
+                animarEntradas(seccion);
+
+                // El aro del ícono se dibuja
+                gsap.fromTo(
+                    seccion.querySelector(".le-aro"),
+                    { strokeDashoffset: 1 },
+                    {
+                        strokeDashoffset: 0,
+                        duration: 1.8,
+                        ease: "power2.inOut",
+                        delay: 0.2,
+                        scrollTrigger: {
+                            trigger: seccion.querySelector(".le-icono"),
+                            start: "top 90%",
+                            toggleActions: "play none none reset",
+                        },
+                    },
+                );
+
+                if (!sinMovimiento()) {
+                    // La pluma flota y la flor se mece
+                    gsap.to(seccion.querySelector(".le-pluma"), {
+                        y: -5,
+                        rotation: 2,
+                        duration: 3,
+                        ease: "sine.inOut",
+                        yoyo: true,
+                        repeat: -1,
+                    });
+                    const flor = seccion.querySelector<HTMLElement>(".le-flor");
+                    gsap.to(flor, {
+                        rotation: flor?.classList.contains("le-flor-izq") ? 3 : -3,
+                        duration: 3.8,
+                        ease: "sine.inOut",
+                        yoyo: true,
+                        repeat: -1,
+                        delay: 1.2,
+                    });
+                }
+            });
+    });
+</script>

@@ -1,0 +1,109 @@
+﻿---
+// Confirmar.astro
+const numero = "59176811161";
+const mensaje =
+    "Me complace confirmar mi asistencia a la boda de Alain y Marisabel. Nos vemos el sábado 9 de octubre. ¡Estaré sin falta!";
+// Modelo de muestra: el botón no abre WhatsApp. Para un cliente real usar:
+// const urlWhatsapp = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+const urlWhatsapp = "#";
+---
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 💬 SECCIÓN: CONFIRMA TU ASISTENCIA                          -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="relative w-full pt-10 pb-14 px-6 overflow-hidden" id="seccion-confirmar">
+
+    <!-- COSTADITO DERECHA (decoración floral) -->
+    <img
+        src="/imagenes/costadito.png"
+        alt="Decoración floral"
+        class="absolute -right-6 top-1/2 w-24 sm:w-28 z-0 pointer-events-none select-none rotate-6"
+        id="costadito-confirmar"
+    />
+
+    <!-- CONTENIDO CENTRADO -->
+    <div class="relative z-10 flex flex-col items-center text-center max-w-xs mx-auto">
+
+        <!-- MENSAJE -->
+        <p
+            class="font-mollen-light text-[#f3ead9]/90 text-base sm:text-lg leading-relaxed mb-3"
+            id="texto-confirmar"
+        >
+            Tu presencia hará de este día un momento inolvidable, y nos llenaría de alegría poder compartirlo contigo.
+        </p>
+        <p
+            class="font-jane-light uppercase tracking-[0.15em] text-[#d9c07a] text-base sm:text-lg leading-relaxed mb-8"
+            id="subtexto-confirmar"
+        >
+            Por favor, confírmanos tu asistencia
+        </p>
+
+        <!-- BOTÓN CONFIRMAR (WhatsApp) -->
+        <a
+            href={urlWhatsapp}
+            class="inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-xl
+                   bg-gradient-to-b from-[#e08344] to-[#c95f28] text-white
+                   font-jane-light text-base uppercase tracking-[0.15em]
+                   border border-[#f3ead9]/20 shadow-lg
+                   transition-all duration-300 hover:scale-105 active:scale-95"
+            id="btn-confirmar"
+            aria-label="Confirmar asistencia por WhatsApp"
+        >
+            <svg class="w-5 h-5 text-white shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.526 5.847L.057 23.882a.5.5 0 00.606.63l6.194-1.624A11.934 11.934 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.875 9.875 0 01-5.031-1.376l-.36-.214-3.733.979.996-3.648-.235-.374A9.857 9.857 0 012.118 12C2.118 6.533 6.533 2.118 12 2.118S21.882 6.533 21.882 12 17.467 21.882 12 21.882z"/>
+            </svg>
+            <span>Confirmar asistencia</span>
+        </a>
+
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- 🎬 ANIMACIONES CON GSAP                                     -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#seccion-confirmar",
+                start: "top 85%",
+                toggleActions: "play none none reset",
+            },
+        });
+
+        tl.fromTo(
+            "#costadito-confirmar",
+            { opacity: 0, x: 40 },
+            { opacity: 1, x: 0, duration: 1.2, ease: "power2.out" },
+            0,
+        )
+        .fromTo(
+            ["#texto-confirmar", "#subtexto-confirmar"],
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.9, stagger: 0.15, ease: "sine.out" },
+            0.3,
+        )
+        .fromTo(
+            "#btn-confirmar",
+            { opacity: 0, scale: 0.9 },
+            { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.4)" },
+            0.6,
+        );
+
+        // Pulso suave del botón
+        gsap.to("#btn-confirmar", {
+            scale: 1.04,
+            duration: 1.4,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1,
+            delay: 1.6,
+        });
+    });
+</script>

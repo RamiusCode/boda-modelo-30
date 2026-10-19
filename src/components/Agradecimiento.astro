@@ -1,0 +1,254 @@
+﻿---
+// Agradecimiento.astro
+const padrinos = [
+    {
+        titulo: "Padrinos de Religión",
+        nombres: ["Sof. Mtre. (SP) Renan Pardo Meneces", "Arq. Margarita Maida Arze"],
+    },
+    {
+        titulo: "Padrinos de Civil",
+        nombres: ["Ing. Jose Antonio Orellana Ricaldez", "Prof. Romelinda Veizaga Medina"],
+    },
+    {
+        titulo: "Padrinos de Aros",
+        nombres: ["Carlos Anguela Ojeda", "Prof. Reyna Canelas Medina"],
+    },
+];
+---
+
+<section class="relative w-full pt-10 pb-32 px-6 overflow-hidden" id="seccion-agradecimiento">
+
+    <!-- FONDO: recto arriba, línea diagonal que sube abajo -->
+    <div
+        class="absolute inset-0 z-0 bg-[#0b2138]"
+        style="clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);"
+    ></div>
+    <!-- Luz suave detrás del título -->
+    <div class="ag-luz" aria-hidden="true"></div>
+
+    <div class="relative z-10 flex flex-col items-center text-center max-w-xs mx-auto">
+
+        <!-- CORAZÓN DORADO QUE SE DIBUJA -->
+        <svg class="ag-corazon mb-2" id="corazon-agradecimiento" viewBox="0 0 48 44" fill="none" aria-hidden="true" data-entrada="giro">
+            <path pathLength="1" d="M24 40C24 40 4 27 4 14.5C4 8 9 3.5 14.5 3.5C18.6 3.5 22 6 24 9.5C26 6 29.4 3.5 33.5 3.5C39 3.5 44 8 44 14.5C44 27 24 40 24 40Z"></path>
+        </svg>
+
+        <!-- TÍTULO "Agradecimiento" -->
+        <h2
+            class="ag-titulo font-great-vibes-local text-5xl sm:text-6xl leading-tight mb-4"
+            id="titulo-agradecimiento"
+            data-entrada="desenfoque"
+        >
+            Agradecimiento
+        </h2>
+
+        <!-- PUNTO SEPARADOR con líneas -->
+        <div class="flex items-center justify-center gap-2 mb-6" id="punto-agradecimiento" aria-hidden="true">
+            <span class="ag-linea" data-entrada="centro"></span>
+            <span class="w-2 h-2 rounded-full bg-[#d4682a] ag-punto"></span>
+            <span class="ag-linea ag-linea-der" data-entrada="centro"></span>
+        </div>
+
+        <!-- MENSAJE -->
+        <p
+            class="font-mollen-light text-[#f3ead9]/90 text-base sm:text-lg leading-relaxed"
+            id="texto-agradecimiento"
+            data-entrada="abajo"
+        >
+            A Dios por ser pieza fundamental en nuestro matrimonio, a nuestros padres y hermanos por ser nuestro apoyo y soporte, y a cada uno de ustedes por acompañarnos en este día tan especial con su presencia y cariño incondicional.
+        </p>
+
+        <!-- MARCO DORADO CON PADRINOS -->
+        <div class="ag-marco w-full mt-10" id="marco-padrinos" data-entrada="abajo">
+            <span class="ag-etiqueta font-jane-light">Nuestros padrinos</span>
+
+            {
+                padrinos.map((grupo, i) => (
+                    <>
+                        {i > 0 && (
+                            <div class="flex items-center justify-center gap-2 my-5" aria-hidden="true">
+                                <span class="ag-linea-corta"></span>
+                                <span class="ag-puntito"></span>
+                                <span class="ag-linea-corta ag-linea-der"></span>
+                            </div>
+                        )}
+                        <div data-entrada={i % 2 === 0 ? "izq" : "der"}>
+                            <p class="font-jane-light uppercase tracking-[0.15em] text-[#d9c07a] text-base mb-1">
+                                {grupo.titulo}
+                            </p>
+                            <p class="font-mollen-light text-[#f3ead9]/90 text-base leading-relaxed">
+                                {grupo.nombres.map((n) => (
+                                    <span class="block">{n}</span>
+                                ))}
+                            </p>
+                        </div>
+                    </>
+                ))
+            }
+        </div>
+
+    </div>
+</section>
+
+<style>
+    .ag-luz {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: min(120vw, 520px);
+        height: 340px;
+        transform: translateX(-50%);
+        background: radial-gradient(ellipse at center, rgba(70, 130, 190, 0.22), rgba(70, 130, 190, 0) 65%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .ag-corazon {
+        width: 2.2rem;
+        height: auto;
+        overflow: visible;
+        filter: drop-shadow(0 0 6px rgba(233, 196, 143, 0.55));
+    }
+    .ag-corazon path {
+        stroke: #d9c07a;
+        stroke-width: 1.4;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+    }
+
+    /* Título con brillo dorado, como los nombres */
+    .ag-titulo {
+        padding: 0 0.2em;
+        background: linear-gradient(110deg, #d9c07a 0%, #e8d5a8 35%, #fff3d6 48%, #e8d5a8 60%, #d9c07a 100%);
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 2px 0 rgba(120, 60, 25, 0.35)) drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4));
+        animation: ag-brillo 7s ease-in-out infinite;
+    }
+    @keyframes ag-brillo {
+        0%,
+        100% {
+            background-position: 100% 0;
+        }
+        50% {
+            background-position: 0% 0;
+        }
+    }
+
+    .ag-linea {
+        display: block;
+        height: 1px;
+        width: 3.5rem;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.85));
+        transform-origin: 100% 50%;
+    }
+    .ag-linea-der {
+        background: linear-gradient(90deg, rgba(217, 192, 122, 0.85), transparent);
+        transform-origin: 0% 50%;
+    }
+    .ag-punto {
+        box-shadow: 0 0 8px rgba(212, 104, 42, 0.8);
+    }
+
+    /* Marco de vidrio con borde dorado y línea interior */
+    .ag-marco {
+        position: relative;
+        padding: 2.25rem 1.4rem 1.75rem;
+        border-radius: 18px;
+        border: 2px solid #c2a96b;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+        box-shadow:
+            0 24px 40px -24px rgba(0, 0, 0, 0.75),
+            0 0 26px -10px rgba(233, 196, 143, 0.35);
+    }
+    .ag-marco::before {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border-radius: 12px;
+        border: 1px solid rgba(194, 169, 107, 0.28);
+        pointer-events: none;
+    }
+    .ag-etiqueta {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        padding: 0.3rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #10263f;
+        background: linear-gradient(180deg, #f3e2b5, #d9c07a);
+        box-shadow: 0 4px 10px -3px rgba(0, 0, 0, 0.5);
+    }
+
+    .ag-linea-corta {
+        display: block;
+        height: 1px;
+        width: 2.5rem;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.7));
+    }
+    .ag-puntito {
+        width: 4px;
+        height: 4px;
+        border-radius: 9999px;
+        background: #d9c07a;
+        box-shadow: 0 0 6px rgba(233, 196, 143, 0.7);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .ag-titulo {
+            animation: none;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const seccion = document.getElementById("seccion-agradecimiento");
+        if (!seccion) return;
+
+        animarEntradas(seccion);
+
+        // El corazón dorado se dibuja
+        gsap.fromTo(
+            "#corazon-agradecimiento path",
+            { strokeDashoffset: 1 },
+            {
+                strokeDashoffset: 0,
+                duration: 1.8,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#corazon-agradecimiento",
+                    start: "top 90%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+
+        // Un latido suave de vez en cuando
+        if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            gsap.to("#corazon-agradecimiento path", {
+                scale: 1.12,
+                transformOrigin: "50% 50%",
+                duration: 0.35,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                repeatDelay: 2.4,
+                delay: 2.5,
+            });
+        }
+    });
+</script>

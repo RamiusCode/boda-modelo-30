@@ -1,0 +1,303 @@
+﻿---
+// Despedida.astro — última sección de la invitación
+// Datos de muestra (modelo para clientes)
+const despedida = {
+    foto: "/imagenes/foto4.jpg",
+    novio: "Alain",
+    novia: "Marisabel",
+    fecha: "09 · 10 · 2027",
+};
+---
+
+<section class="relative w-full pb-16 overflow-hidden" id="seccion-despedida">
+
+    <!-- FOTO FINAL que se funde con el fondo -->
+    <div class="de-foto w-full overflow-hidden" data-entrada="desenfoque">
+        <img
+            src={despedida.foto}
+            alt="Los novios"
+            class="w-full h-auto"
+            id="foto-despedida"
+            loading="lazy"
+        />
+    </div>
+
+    <!-- PÉTALOS QUE CAEN (se generan en el script) -->
+    <div class="absolute inset-0 z-[5] pointer-events-none" id="petalos-despedida"></div>
+
+    <!-- FLORES A LOS COSTADOS -->
+    <img
+        src="/imagenes/costadito2.png"
+        alt="Decoración floral"
+        class="de-flor de-flor-izq absolute left-0 bottom-[8%] w-20 sm:w-24 z-20 pointer-events-none select-none"
+        data-entrada="izq"
+    />
+    <img
+        src="/imagenes/costadito.png"
+        alt="Decoración floral"
+        class="de-flor de-flor-der absolute right-0 bottom-[30%] w-20 sm:w-24 z-20 pointer-events-none select-none"
+        data-entrada="der"
+    />
+
+    <div class="relative z-10 flex flex-col items-center text-center max-w-xs mx-auto px-6 -mt-16">
+
+        <!-- TÍTULO -->
+        <h2
+            class="de-titulo font-great-vibes-local whitespace-nowrap leading-tight"
+            id="titulo-despedida"
+            data-entrada="desenfoque"
+        >
+            ¡Te esperamos!
+        </h2>
+
+        <!-- PUNTO SEPARADOR con líneas -->
+        <div class="flex items-center justify-center gap-2 my-5" id="punto-despedida" aria-hidden="true">
+            <span class="de-linea" data-entrada="centro"></span>
+            <span class="de-punto"></span>
+            <span class="de-linea de-linea-der" data-entrada="centro"></span>
+        </div>
+
+        <!-- MENSAJE -->
+        <p
+            class="font-mollen-light text-[#f3ead9]/90 text-base sm:text-lg leading-relaxed"
+            id="texto-despedida"
+            data-entrada="abajo"
+        >
+            Gracias por ser parte de nuestra historia. Será un honor compartir este día tan especial contigo.
+        </p>
+
+        <!-- NOMBRES -->
+        <p class="de-nombres font-great-vibes-local text-4xl leading-tight mt-8" data-entrada="desenfoque">
+            {despedida.novio} <span class="de-amp">&amp;</span> {despedida.novia}
+        </p>
+
+        <!-- FECHA -->
+        <div class="flex items-center justify-center gap-3 mt-4" data-entrada="abajo">
+            <span class="de-linea-corta"></span>
+            <p class="font-jane-light text-[#e8d5a8] text-sm tracking-[0.3em]">
+                {despedida.fecha}
+            </p>
+            <span class="de-linea-corta de-linea-der"></span>
+        </div>
+
+        <!-- CORAZÓN FINAL QUE SE DIBUJA -->
+        <svg class="de-corazon mt-8" id="corazon-despedida" viewBox="0 0 48 44" fill="none" aria-hidden="true" data-entrada="giro">
+            <path pathLength="1" d="M24 40C24 40 4 27 4 14.5C4 8 9 3.5 14.5 3.5C18.6 3.5 22 6 24 9.5C26 6 29.4 3.5 33.5 3.5C39 3.5 44 8 44 14.5C44 27 24 40 24 40Z"></path>
+        </svg>
+    </div>
+</section>
+
+<style>
+    /* La foto se funde con el fondo arriba y abajo */
+    .de-foto {
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 70%, transparent 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 70%, transparent 100%);
+    }
+
+    /* Título con brillo dorado, como los nombres */
+    .de-titulo {
+        font-size: clamp(2.8rem, 13vw, 4.25rem);
+        padding: 0 0.2em;
+        background: linear-gradient(110deg, #d9c07a 0%, #e8d5a8 35%, #fff3d6 48%, #e8d5a8 60%, #d9c07a 100%);
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 2px 0 rgba(120, 60, 25, 0.4)) drop-shadow(0 10px 14px rgba(0, 0, 0, 0.5));
+        animation: de-brillo 7s ease-in-out infinite;
+    }
+    @keyframes de-brillo {
+        0%,
+        100% {
+            background-position: 100% 0;
+        }
+        50% {
+            background-position: 0% 0;
+        }
+    }
+
+    .de-nombres {
+        color: #f6ecd6;
+        filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45));
+    }
+    .de-amp {
+        color: #d4682a;
+        margin: 0 0.25em;
+    }
+
+    .de-linea {
+        display: block;
+        height: 1px;
+        width: 3.5rem;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.85));
+        transform-origin: 100% 50%;
+    }
+    .de-linea-der {
+        background: linear-gradient(90deg, rgba(217, 192, 122, 0.85), transparent);
+        transform-origin: 0% 50%;
+    }
+    .de-linea-corta {
+        display: block;
+        height: 1px;
+        width: 2rem;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.7));
+    }
+    .de-punto {
+        width: 8px;
+        height: 8px;
+        border-radius: 9999px;
+        background: #d4682a;
+        box-shadow: 0 0 8px rgba(212, 104, 42, 0.8);
+    }
+
+    .de-corazon {
+        width: 1.9rem;
+        height: auto;
+        overflow: visible;
+        filter: drop-shadow(0 0 6px rgba(233, 196, 143, 0.55));
+    }
+    .de-corazon path {
+        stroke: #d9c07a;
+        stroke-width: 1.4;
+        stroke-linejoin: round;
+        stroke-dasharray: 1;
+    }
+
+    .de-flor {
+        filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.4));
+    }
+    .de-flor-izq {
+        transform-origin: 0% 50%;
+    }
+    .de-flor-der {
+        transform-origin: 100% 50%;
+    }
+
+    :global(.de-petalo) {
+        position: absolute;
+        top: 0;
+        opacity: 0;
+        filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.25));
+    }
+    :global(.de-petalo svg) {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .de-titulo {
+            animation: none;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { animarEntradas, sinMovimiento } from "../scripts/entradas";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const seccion = document.getElementById("seccion-despedida");
+        if (!seccion) return;
+
+        animarEntradas(seccion);
+
+        // El corazón final se dibuja
+        gsap.fromTo(
+            "#corazon-despedida path",
+            { strokeDashoffset: 1 },
+            {
+                strokeDashoffset: 0,
+                duration: 2,
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: "#corazon-despedida",
+                    start: "top 95%",
+                    toggleActions: "play none none reset",
+                },
+            },
+        );
+
+        if (sinMovimiento()) return;
+
+        // La foto se acerca despacio al bajar
+        gsap.fromTo(
+            "#foto-despedida",
+            { scale: 1.12 },
+            {
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: seccion,
+                    start: "top bottom",
+                    end: "center center",
+                    scrub: true,
+                },
+            },
+        );
+
+        // Las flores se mecen
+        gsap.to(seccion.querySelector(".de-flor-izq"), {
+            rotation: 3, duration: 3.8, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.2,
+        });
+        gsap.to(seccion.querySelector(".de-flor-der"), {
+            rotation: -3, duration: 4.2, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 1.2,
+        });
+
+        // ═══ PÉTALOS TERRACOTA QUE CAEN (como en la portada) ═══
+        const capa = document.getElementById("petalos-despedida");
+        const colores = ["#d4682a", "#c95f28", "#e07b3c", "#b8521f", "#ea8f55"];
+        const alto = seccion.offsetHeight;
+        const petalos: gsap.core.Tween[] = [];
+        for (let i = 0; i < 8; i++) {
+            const petalo = document.createElement("span");
+            const tam = gsap.utils.random(9, 15);
+            petalo.className = "de-petalo";
+            petalo.style.width = `${tam}px`;
+            petalo.style.height = `${tam * 1.35}px`;
+            petalo.style.left = `${gsap.utils.random(0, 100)}%`;
+            petalo.innerHTML = `<svg viewBox="0 0 20 27"><path d="M10 0C17 6 18 17 10 27C2 17 3 6 10 0Z" fill="${gsap.utils.random(colores)}"/></svg>`;
+            capa?.appendChild(petalo);
+
+            const espera = gsap.utils.random(0, 6);
+            petalos.push(
+                gsap.fromTo(
+                    petalo,
+                    { y: -40, opacity: 0, rotation: gsap.utils.random(0, 360) },
+                    {
+                        y: alto + 40,
+                        opacity: gsap.utils.random(0.6, 0.9),
+                        rotation: `+=${gsap.utils.random(-300, 300)}`,
+                        duration: gsap.utils.random(12, 20),
+                        ease: "none",
+                        repeat: -1,
+                        delay: espera,
+                        paused: true,
+                    },
+                ),
+            );
+            petalos.push(
+                gsap.to(petalo, {
+                    x: gsap.utils.random(-50, 50),
+                    rotationY: 180,
+                    duration: gsap.utils.random(2.5, 4.5),
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    paused: true,
+                }),
+            );
+        }
+
+        // Los pétalos solo caen mientras la sección está en pantalla
+        ScrollTrigger.create({
+            trigger: seccion,
+            start: "top bottom",
+            end: "bottom top",
+            onToggle: (s) => petalos.forEach((t) => (s.isActive ? t.play() : t.pause())),
+        });
+    });
+</script>

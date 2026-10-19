@@ -1,0 +1,131 @@
+﻿---
+// NombresPadres.astro
+---
+
+<section class="relative w-full pt-4 pb-8 px-6 overflow-hidden" id="seccion-padres">
+
+    <!-- PLUMA SUPERIOR CENTRADA -->
+    <div class="flex justify-center mb-6" id="pluma-top" data-entrada="arriba">
+        <img
+            src="/imagenes/pluma.png"
+            alt="Pluma decorativa"
+            class="w-24 sm:w-28 object-contain"
+        />
+    </div>
+
+    <!-- TÍTULO -->
+    <div class="text-center mb-5 px-6" id="titulo-padres" data-entrada="desenfoque">
+        <p class="font-jane-light uppercase tracking-[0.12em] text-[#f3ead9] text-lg sm:text-lg leading-snug">
+            Con la bendición de Dios y nuestros padres:
+        </p>
+
+    </div>
+
+    <!-- CONTENIDO CENTRADO CON COSTADITO PEGADO A LA DERECHA -->
+    <div class="relative -mx-6">
+
+        <!-- COSTADITO pegado a la derecha en todos los tamaños -->
+        <img
+            src="/imagenes/costadito.png"
+            alt="Decoración floral"
+            class="absolute right-0 -top-10 w-20 sm:w-24 z-10 pointer-events-none select-none"
+            id="costadito-padres"
+            data-entrada="der"
+        />
+
+        <div class="relative max-w-xs mx-auto">
+
+        <!-- PADRES DEL NOVIO -->
+        <div class="text-center mb-4" id="seccion-novio">
+            <p class="font-jane-light text-[#d9c07a] text-lg sm:text-base tracking-[0.15em] uppercase mb-1" data-entrada="izq">
+                Padres del Novio
+            </p>
+            <p class="font-mollen-light text-[#f3ead9]/90 text-base leading-relaxed">
+                <span class="block" data-entrada="izq">Francisco Canelas Medina</span>
+                <span class="block" data-entrada="izq">Norma Molina Villalta</span>
+            </p>
+        </div>
+
+        <!-- SEPARADOR DORADO -->
+        <div class="pd-separador mb-4" id="separador-padres" data-entrada="centro" aria-hidden="true">
+            <span class="pd-linea"></span>
+            <span class="pd-punto"></span>
+            <span class="pd-linea pd-linea-der"></span>
+        </div>
+
+        <!-- PADRES DE LA NOVIA -->
+        <div class="text-center" id="seccion-novia">
+            <p class="font-jane-light text-[#d9c07a] text-lg sm:text-base tracking-[0.15em] uppercase mb-1" data-entrada="der">
+                Padres de la Novia
+            </p>
+            <p class="font-mollen-light text-[#f3ead9]/90 text-base leading-relaxed">
+                <span class="block" data-entrada="der">Sof. Mtre. (SP) Juan José López  Fernández</span>
+                <span class="block" data-entrada="der">Marísabel Arteaga Barriga</span>
+            </p>
+        </div>
+
+        </div>
+    </div>
+
+  
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { animarEntradas, sinMovimiento } from "../scripts/entradas";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const seccion = document.getElementById("seccion-padres");
+        if (!seccion) return;
+
+        animarEntradas(seccion);
+
+        // Movimiento suave y continuo de la pluma y la flor
+        if (!sinMovimiento()) {
+            gsap.to("#pluma-top img", {
+                y: -5,
+                rotation: 2,
+                duration: 3,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+            });
+            gsap.to("#costadito-padres", {
+                rotation: -3,
+                transformOrigin: "100% 0%",
+                duration: 3.8,
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1,
+                delay: 1.2,
+            });
+        }
+    });
+</script>
+
+<style>
+    /* Separador dorado fino entre los dos padres */
+    .pd-separador {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        transform-origin: 50% 50%;
+    }
+    .pd-linea {
+        display: block;
+        height: 1px;
+        width: 4.5rem;
+        background: linear-gradient(90deg, transparent, rgba(217, 192, 122, 0.8));
+    }
+    .pd-linea-der {
+        background: linear-gradient(90deg, rgba(217, 192, 122, 0.8), transparent);
+    }
+    .pd-punto {
+        width: 4px;
+        height: 4px;
+        border-radius: 9999px;
+        background: #e9c48f;
+        box-shadow: 0 0 6px rgba(233, 196, 143, 0.8);
+    }
+</style>
